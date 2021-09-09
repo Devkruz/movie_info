@@ -11,7 +11,7 @@
   "scripts": {
     "deploy": "gh-pages -d forge"
   },
-  "homepage": "https://kruzdev.github.io/movie_info",
+  "homepage": "https://kruzdev.github.io/movie_info/",
   "author": "",
   "license": "ISC"
 }
