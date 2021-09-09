@@ -10,9 +10,10 @@ $(function() {
    //Getting and storing the usersearch words
    //Prevent the form from submiting
    //Call getMovie function and give it the usersearch as parameter
-    form.on('submit', e => e.preventDefault());
-    form.on('keyup', (e) => {
-             
+    
+    form.on('submit', (e) => {
+             e.preventDefault()
+             console.log(e);
              inputValue = inputBox.val();
              getMovies(inputValue);
     })
