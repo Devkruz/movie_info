@@ -1,0 +1,110 @@
+//details page styles
+
+
+.movie-details_page {
+    font-family: Arial, Helvetica, sans-serif;
+    background: $dark;
+    color:white;
+}
+
+.movie-details_page {
+        
+    .logo_wrapper {
+    
+        width: 100%;
+        height: 5vh;
+        border-bottom: 1px solid $gray-dark;
+    
+        .logo {
+            width: 80%;
+            height: 100%;
+            margin: auto;
+            line-height: 1;
+    
+           
+        }
+    }
+
+}
+
+
+
+ 
+  
+.movie-details_page .movie-details_wrapper {
+                 
+          width: 100%;
+          margin: 2rem auto;
+        
+    
+        .movie-details {
+              width: 80%;
+              display: grid;
+              grid-template-columns: 1fr 2fr;
+              grid-template-rows: 80vh 35vh;
+              gap:2rem;
+              padding: 1rem;
+              background: $gray-dark;
+              margin:0 auto;
+              border-radius: 5px;
+              
+              .title_wrapper {
+
+                .title {
+                    font-size: 2.5rem;
+                }
+              }
+              .poster_wrapper {
+                   width: 100%;
+                   
+                   .poster{
+                     width: 100%;
+                     height: 100%;
+                     border-radius: 5px;
+                     border:5px solid $gray;
+                 }
+              }
+
+              .description_wrapper {
+                  background: $gray;
+                  border-radius: 5px;
+                  
+                  .descriptions {
+                      list-style: none;
+                  }
+
+                  .desc {
+                      padding:1rem;
+                      border-bottom: 1px solid $gray-dark;
+                  }
+              }
+    
+              .plot_wrapper {
+                  grid-column: 1/3;
+                  border:1px solid $gray;
+                  padding:0 1rem;
+
+                  .plot-heading {
+                      font-size: 2rem;
+                  }
+                    
+                  .plot-text {
+                      padding-bottom:15px;
+                      border-bottom: 1px solid gray;
+                  }
+                
+                  .plot-btn_wrapper {
+
+                      .view {
+                            @include btn-primary;
+                      }
+
+                      .back {
+                          @include btn-default;
+                      }
+                  }
+              }
+        }
+    }
+    
+
