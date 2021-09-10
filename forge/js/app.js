@@ -20,7 +20,7 @@ $(function() {
     //Creat getMovie function and accept the usersearch parameter
    function getMovies(inputValue) {
             // Fetch for movies using the usersearch parameter
-             fetch(`http://www.omdbapi.com/?s=${inputValue}&apikey=7184713f`)
+             fetch(`https://www.omdbapi.com/?s=${inputValue}&apikey=7184713f`)
                     .then((res) => {
                            return res.json();
                     })
@@ -69,7 +69,7 @@ $(function() {
                  
                  movieID = sessionStorage.getItem("movieId");
                  // Fetch for the selected movie using it ID
-                 fetch(`http://www.omdbapi.com/?i=${movieID}&apikey=7184713f`)
+                 fetch(`https://www.omdbapi.com/?i=${movieID}&apikey=7184713f`)
                  .then((res) => {
                         return res.json();
                  })
