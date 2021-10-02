@@ -6,6 +6,7 @@ $(function() {
     const movieShowcase = $(".movies-showcase");
     const movieDetails = $(".movie-details");
     let inputValue;
+    const movieTemp = document.querySelector("#movie-template")
     
    //Getting and storing the usersearch words
    //Prevent the form from submiting
@@ -21,36 +22,34 @@ $(function() {
    function getMovies(inputValue) {
             // Fetch for movies using the usersearch parameter
              fetch(`https://www.omdbapi.com/?s=${inputValue}&apikey=7184713f`)
-                    .then((res) => {
+             .then((res) => {
                            return res.json();
                     })
-                    .then(data => {
+             .then(data => {
                     //Store the json data into a variable 
                         let movieSearchData = data.Search;
-                        console.log(data);
-                        let movieSearchOutput = "";
+                        let movieSearchOutput;
+            
                        
-                        movieSearchData.forEach((movie)=> {
+                        movieSearchData.forEach((movie) => {
                           // Loop through each object and append the relevant data to the DOM element 
-                                movieSearchOutput += `
-                                
-                                <div class="movie">
-                                  <div class="poster">
-                                    <img src="${movie.Poster}" alt="${movie.Title}">
-                                  </div>
-                                     <h3 class="title">
-                                       ${movie.Title}
-                                     </h3>
-                                  <a onClick = "movieSelected('${movie.imdbID}')" class="details-btn">Details</a>
-                                 </div>
+                               // Cloning the movie template
+                                 movieSearchOutput = movieTemp.content.cloneNode(true);
                                  
-                               `
+                                // Appending all nessecary data
+                                movieSearchOutput.querySelector(".poster-img").src = movie.Poster;
+                                movieSearchOutput.querySelector(".poster-img").alt = movie.Title;
+                                movieSearchOutput.querySelector(".title").append(movie.Title);
+                                movieSearchOutput.querySelector(".details-btn").onClick =  "movieSelected('${movie.imdbID}')" ;
+                                movieShowcase.append(movieSearchOutput);
+                           
                         });
                          // Insert the DOM template to the page
-                         movieShowcase.html(movieSearchOutput);
+                         
                          
                         })
                         .catch((err) => {
+                        console.log('Something went wrong')
                         console.log(err);
                          });
 
