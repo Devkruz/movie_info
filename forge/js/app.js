@@ -117,7 +117,7 @@ $(function() {
                       
                                       <div class="plot-btn_wrapper">
                                           <a  href= "http://imdb.com/title/${movieID}" target= "_blank" class="plot-btn view">View IMDB</a>
-                                          <a href = "./movie_search.html" class="plot-btn back">Go Back To Search</a>
+                                          <a href = "./index.html" class="plot-btn back">Go Back To Search</a>
                                       </div>
 
                                   </div>
