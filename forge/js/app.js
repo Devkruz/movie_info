@@ -1,20 +1,20 @@
 
 $(function() {
     // Get all the element needed from the DOM
-    const inputBox = $("#movie-search-input");
-    const form = $("#movie-search-input_wrapper");
-    const movieShowcase = $(".movies-showcase");
-    const movieDetails = $(".movie-details");
+    const $inputBox = $("#movie-search-input");
+    const $form = $("#movie-search-input_wrapper");
+    const $movieShowcase = $(".movies-showcase");
+    const $movieDetails = $(".movie-details");
     let inputValue;
-    const movieTemp = document.querySelector("#movie-template")
+    const $movieTemp = document.querySelector("#movie-template")
     
    //Getting and storing the usersearch words
    //Prevent the form from submiting
    //Call getMovie function and give it the usersearch as parameter
-    form.on('submit', e => e.preventDefault());
-    form.on('keyup', (e) => {
+    $form.on('submit', e => e.preventDefault());
+    $form.on('keyup', (e) => {
              
-             inputValue = inputBox.val();
+             inputValue = $inputBox.val();
              getMovies(inputValue);
     })
 
@@ -34,17 +34,18 @@ $(function() {
                         movieSearchData.forEach((movie) => {
                           // Loop through each object and append the relevant data to the DOM element 
                                // Cloning the movie template
-                                 movieSearchOutput = movieTemp.content.cloneNode(true);
+                                 movieSearchOutput = $movieTemp.content.cloneNode(true);
                                 // Appending all nessecary data
                                 movieSearchOutput.querySelector(".poster-img").src = movie.Poster;
                                 movieSearchOutput.querySelector(".poster-img").alt = movie.Title;
                                 movieSearchOutput.querySelector(".title").append(movie.Title);
-                                movieSearchOutput.querySelector(".details-btn").onClick = "movieSelected('${movie.imdbID}')" ;
+                                movieSearchOutput.querySelector(".details-btn").setAttribute("onClick", `movieSelected('${movie.imdbID}')`);
+                                console.log(movieSearchOutput.querySelector(".details-btn").onClick);
                                 nf.append(movieSearchOutput);
                            
                         });
                          // Insert the DOM template to the page
-                         movieShowcase.append(nf);
+                         $movieShowcase.html(nf);
                          
                         })
                         .catch((err) => {
@@ -53,10 +54,11 @@ $(function() {
                          });
 
               }
-             //Creat moveieSelected function that is called when the user click any movie details button
+             //Creat movieSelected function that is called when the user click any movie details button
              //Get the movie id from the api and store it in the session storage
               window.movieSelected = movieSelected;    
               function movieSelected(Id) {
+                  console.log("clicked")
                 sessionStorage.setItem("movieId", Id);
                 window.location = "movie_details.html";
                  return false;
@@ -74,7 +76,6 @@ $(function() {
                  .then(data => {
                      // Store the response you got back
                      let movieDetailsData = data;
-                     console.log(movieDetailsData);
                    
                       //Creat a template and append the necessary data to the DOM
                          let  movieDetailsOutput = `
@@ -115,7 +116,7 @@ $(function() {
                       
                                       <div class="plot-btn_wrapper">
                                           <a  href= "http://imdb.com/title/${movieID}" target= "_blank" class="plot-btn view">View IMDB</a>
-                                          <a href = "./movie_search.html" class="plot-btn back">Go Back To Search</a>
+                                          <a href = "./index.html" class="plot-btn back">Go Back To Search</a>
                                       </div>
 
                                   </div>
@@ -123,7 +124,7 @@ $(function() {
                               
                             `
                             //Insert the template to the page
-                            movieDetails.html(movieDetailsOutput);
+                            $movieDetails.html(movieDetailsOutput);
                      
                       
                      })
