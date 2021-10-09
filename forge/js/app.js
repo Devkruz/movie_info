@@ -29,23 +29,22 @@ $(function() {
                     //Store the json data into a variable 
                         let movieSearchData = data.Search;
                         let movieSearchOutput;
-            
+                        let nf = new DocumentFragment();
                        
                         movieSearchData.forEach((movie) => {
                           // Loop through each object and append the relevant data to the DOM element 
                                // Cloning the movie template
                                  movieSearchOutput = movieTemp.content.cloneNode(true);
-                                 
                                 // Appending all nessecary data
                                 movieSearchOutput.querySelector(".poster-img").src = movie.Poster;
                                 movieSearchOutput.querySelector(".poster-img").alt = movie.Title;
                                 movieSearchOutput.querySelector(".title").append(movie.Title);
-                                movieSearchOutput.querySelector(".details-btn").onClick =  "movieSelected('${movie.imdbID}')" ;
-                                movieShowcase.append(movieSearchOutput);
+                                movieSearchOutput.querySelector(".details-btn").onClick = "movieSelected('${movie.imdbID}')" ;
+                                nf.append(movieSearchOutput);
                            
                         });
                          // Insert the DOM template to the page
-                         
+                         movieShowcase.append(nf);
                          
                         })
                         .catch((err) => {
