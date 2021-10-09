@@ -1,19 +1,20 @@
 
 $(function() {
     // Get all the element needed from the DOM
-    const inputBox = $("#movie-search-input");
-    const form = $("#movie-search-input_wrapper");
-    const movieShowcase = $(".movies-showcase");
-    const movieDetails = $(".movie-details");
+    const $inputBox = $("#movie-search-input");
+    const $form = $("#movie-search-input_wrapper");
+    const $movieShowcase = $(".movies-showcase");
+    const $movieDetails = $(".movie-details");
     let inputValue;
+    const $movieTemp = document.querySelector("#movie-template")
     
    //Getting and storing the usersearch words
    //Prevent the form from submiting
    //Call getMovie function and give it the usersearch as parameter
-    form.on('submit', e => e.preventDefault());
-    form.on('keyup', (e) => {
+    $form.on('submit', e => e.preventDefault());
+    $form.on('keyup', (e) => {
              
-             inputValue = inputBox.val();
+             inputValue = $inputBox.val();
              getMovies(inputValue);
     })
 
@@ -21,44 +22,43 @@ $(function() {
    function getMovies(inputValue) {
             // Fetch for movies using the usersearch parameter
              fetch(`https://www.omdbapi.com/?s=${inputValue}&apikey=7184713f`)
-                    .then((res) => {
+             .then((res) => {
                            return res.json();
                     })
-                    .then(data => {
+             .then(data => {
                     //Store the json data into a variable 
                         let movieSearchData = data.Search;
-                        console.log(data);
-                        let movieSearchOutput = "";
+                        let movieSearchOutput;
+                        let nf = new DocumentFragment();
                        
-                        movieSearchData.forEach((movie)=> {
+                        movieSearchData.forEach((movie) => {
                           // Loop through each object and append the relevant data to the DOM element 
-                                movieSearchOutput += `
-                                
-                                <div class="movie">
-                                  <div class="poster">
-                                    <img src="${movie.Poster}" alt="${movie.Title}">
-                                  </div>
-                                     <h3 class="title">
-                                       ${movie.Title}
-                                     </h3>
-                                  <a onClick = "movieSelected('${movie.imdbID}')" class="details-btn">Details</a>
-                                 </div>
-                                 
-                               `
+                               // Cloning the movie template
+                                 movieSearchOutput = $movieTemp.content.cloneNode(true);
+                                // Appending all nessecary data
+                                movieSearchOutput.querySelector(".poster-img").src = movie.Poster;
+                                movieSearchOutput.querySelector(".poster-img").alt = movie.Title;
+                                movieSearchOutput.querySelector(".title").append(movie.Title);
+                                movieSearchOutput.querySelector(".details-btn").setAttribute("onClick", `movieSelected('${movie.imdbID}')`);
+                                console.log(movieSearchOutput.querySelector(".details-btn").onClick);
+                                nf.append(movieSearchOutput);
+                           
                         });
                          // Insert the DOM template to the page
-                         movieShowcase.html(movieSearchOutput);
+                         $movieShowcase.html(nf);
                          
                         })
                         .catch((err) => {
+                        console.log('Something went wrong')
                         console.log(err);
                          });
 
               }
-             //Creat moveieSelected function that is called when the user click any movie details button
+             //Creat movieSelected function that is called when the user click any movie details button
              //Get the movie id from the api and store it in the session storage
               window.movieSelected = movieSelected;    
               function movieSelected(Id) {
+                  console.log("clicked")
                 sessionStorage.setItem("movieId", Id);
                 window.location = "movie_details.html";
                  return false;
@@ -76,7 +76,6 @@ $(function() {
                  .then(data => {
                      // Store the response you got back
                      let movieDetailsData = data;
-                     console.log(movieDetailsData);
                    
                       //Creat a template and append the necessary data to the DOM
                          let  movieDetailsOutput = `
@@ -125,7 +124,7 @@ $(function() {
                               
                             `
                             //Insert the template to the page
-                            movieDetails.html(movieDetailsOutput);
+                            $movieDetails.html(movieDetailsOutput);
                      
                       
                      })
