@@ -5,4 +5,4 @@ A movie search website. All you have to do is to type into the search box, and y
 New Features: Would like to add to the website a animated loading skeleton to keep the user entertained, while data is been fetched.
 
 
-live : https://kruzdev.github.io/movie_info/
+live : https://Devkruz.github.io/movie_info/
